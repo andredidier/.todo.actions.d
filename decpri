@@ -4,14 +4,43 @@ action=$1
 shift
 
 [ "$action" = "usage" ] && {
-    echo "incpri"
-    echo "  For each prioritized item, increases priority."
+    echo "incpri $prirange"
+    echo "  For each prioritized item in the range (eg.: A-C), increases priority."
     echo ""
     exit
 }
 
-for pri; do true; done
+chr() {
+  [ "$1" -lt 256 ] || return 1
+  printf "\\$(printf '%03o' "$1")"
+}
 
-for i in $(seq 1 `expr $# - 1`); do
-    $TODO_SH command pri ${!i} $pri;
-done
+ord() {
+  LC_CTYPE=C printf '%d' "'$1"
+}
+
+range="$1"
+
+let count=0
+while read line; do
+    ((count++))
+    [[ $line =~ ^\(([$range])\) ]] && oldpri=${BASH_REMATCH[1]}
+    oldpriord=`ord $oldpri`
+    newpri=`chr $(($oldpriord +1))`
+    if [ $oldpri ]
+    then
+        if [ "$oldpri" == "Z" ]
+        then
+            echo "$TODO_SH command dp $count"
+        else
+            echo "$TODO_SH command pri $count $newpri"
+        fi
+    fi
+    oldpri=
+done <$TODO_FILE
+
+#ordA=`ord A`
+#ordB=$(($ordA + 1))
+#echo "$ordB"
+#echo `chr $ordB`
+
