@@ -4,8 +4,8 @@ action=$1
 shift
 
 [ "$action" = "usage" ] && {
-    echo "incpri $prirange"
-    echo "  For each prioritized item in the range (eg.: A-C), increases priority."
+    echo "decpri $prirange"
+    echo "  For each prioritized item in the range (eg.: A-C), decreases priority."
     echo ""
     exit
 }
