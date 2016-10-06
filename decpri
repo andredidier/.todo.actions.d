@@ -32,9 +32,9 @@ while read line; do
     then
         if [ "$oldpri" == "Z" ]
         then
-            "$TODO_SH command dp $count"
+            "$TODO_FULL_SH" command dp "$count"
         else
-            "$TODO_SH command pri $count $newpri"
+            "$TODO_FULL_SH" command pri "$count" "$newpri"
         fi
     fi
     oldpri=

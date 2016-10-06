@@ -32,7 +32,7 @@ while read line; do
     then
         if [ "$oldpri" != "A" ]
         then
-            "$TODO_SH command pri $count $newpri"
+            "$TODO_FULL_SH" command pri "$count" "$newpri"
         fi
     fi
     oldpri=
