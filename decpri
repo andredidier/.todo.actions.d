@@ -20,6 +20,7 @@ ord() {
 }
 
 range="$1"
+range=${range,,}
 
 let count=0
 while read line; do
