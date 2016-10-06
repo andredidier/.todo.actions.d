@@ -32,16 +32,10 @@ while read line; do
     then
         if [ "$oldpri" == "Z" ]
         then
-            echo "$TODO_SH command dp $count"
+            "$TODO_SH command dp $count"
         else
-            echo "$TODO_SH command pri $count $newpri"
+            "$TODO_SH command pri $count $newpri"
         fi
     fi
     oldpri=
 done <$TODO_FILE
-
-#ordA=`ord A`
-#ordB=$(($ordA + 1))
-#echo "$ordB"
-#echo `chr $ordB`
-
