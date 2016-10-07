@@ -4,8 +4,8 @@ action=$1
 shift
 
 [ "$action" = "usage" ] && {
-    echo "incpri $prirange"
-    echo "  For each prioritized item in the range (eg.: A-C), increases priority."
+    echo "decpri $prirange"
+    echo "  For each prioritized item in the range (eg.: A-C), decreases priority."
     echo ""
     exit
 }
@@ -39,9 +39,3 @@ while read line; do
     fi
     oldpri=
 done <$TODO_FILE
-
-#ordA=`ord A`
-#ordB=$(($ordA + 1))
-#echo "$ordB"
-#echo `chr $ordB`
-

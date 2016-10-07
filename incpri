@@ -30,17 +30,11 @@ while read line; do
     newpri=`chr $(($oldpriord -1))`
     if [ $oldpri ]
     then
-        if [ "$oldpri" == "A" ]
+        if [ "$oldpri" != "A" ]
         then
-            "$TODO_FULL_SH" command append "$count" +urgent
-        else
             "$TODO_FULL_SH" command pri "$count" "$newpri"
         fi
     fi
     oldpri=
 done <$TODO_FILE
 
-#ordA=`ord A`
-#ordB=$(($ordA + 1))
-#echo "$ordB"
-#echo `chr $ordB`
