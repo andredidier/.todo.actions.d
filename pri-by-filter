@@ -1,0 +1,47 @@
+#!/bin/bash
+
+action=$1
+shift
+
+[ "$action" = "usage" ] && {
+    echo "pri-by-filter $newpri $prifilter"
+    echo "  For each prioritized item in the priority filter, defines new priority"
+    echo ""
+    exit
+}
+
+pri=$(printf "%s\n" "$1" | tr 'a-z' 'A-Z' | grep -e '^[A-Z]$' -e '^[A-Z]-[A-Z]$') && shift || pri="A-Z"
+post_filter_command="${post_filter_command:-}${post_filter_command:+ | }grep '^ *[0-9]\+ ([${pri}]) '"
+_list "$TODO_FILE" "$@"
+
+
+#chr() {
+#  [ "$1" -lt 256 ] || return 1
+#  printf "\\$(printf '%03o' "$1")"
+#}
+#
+#ord() {
+#  LC_CTYPE=C printf '%d' "'$1"
+#}
+#
+#range="$1"
+#range=${range^^}
+#
+#let count=0
+#while read line; do
+#    ((count++))
+#    [[ $line =~ ^\(([$range])\) ]] && oldpri=${BASH_REMATCH[1]}
+#    oldpriord=`ord $oldpri`
+#    newpri=`chr $(($oldpriord -1))`
+#    if [ $oldpri ]
+#    then
+#        if [ "$oldpri" == "A" ]
+#        then
+#            "$TODO_FULL_SH" command append "$count" +urgent
+#        else
+#            "$TODO_FULL_SH" command pri "$count" "$newpri"
+#        fi
+#    fi
+#    oldpri=
+#done <$TODO_FILE
+#
